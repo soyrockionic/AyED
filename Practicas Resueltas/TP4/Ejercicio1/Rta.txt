@@ -41,5 +41,5 @@ b) procesarMovimientos es ineficiente porque recorre todas las cuentas entre des
 	
 	
 c) procesarMovimientosOptimizado solo modifica dos posiciones por consulta y luego acumula
-   los valores en un solo recorrido. Así, reduce la complejidad a O(N + M) y es mucho
+   los valores en un solo recorrido. Asi, reduce la complejidad a O(N + M) y es mucho
    mas eficiente.
