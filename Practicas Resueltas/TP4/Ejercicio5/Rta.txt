@@ -4,7 +4,7 @@ b - Cantidad de operaciones realizadas (analisis de eficiencia)?
 
 Respuesta a y b
 
-| Algoritmo	    | ¿Puede quedar en bucle?	| Costo en tiempo   	| Justificacion              |
+| Algoritmo     | Puede quedar en bucle?    | Costo en tiempo       | Justificacion              |
 |---------------|---------------------------|-----------------------|----------------------------|
 | randomUno     | No, pero puede repetir    | Alta  O(n^2)          | Verifica manualmente si    |
 |               | muchas veces              |                       | ya fue usado               |
