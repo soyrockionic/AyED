@@ -1,0 +1,45 @@
+a)
+   | Nº Cuentas          | procesarMovimientos | procesarMovimientosOptimizado |
+	 |---------------------|---------------------|-------------------------------|
+   | 1.000               | 0.038               | 0.002                         |
+   | 10.000              | 1.082               | 0.006                         |
+   | 25.000              | 7.696               | 0.015                         |
+   | 50.000              | 49.253              | 0.021                         |
+   | 100.000             | 250.690             | 0.03                          |
+
+   Grafico:
+       *: procesarMovimientos
+       +: procesarMovimientosOptimizado
+		
+   Segundos
+   --------
+       250 |                                        *
+        80 |
+        75 |
+        70 |
+        65 |
+        60 |
+        55 |
+        50 |                                 *
+        45 |
+        40 |
+        35 |
+        30 |
+        25 |
+        20 |                          
+        15 |
+        10 |                         *
+         5 |                         
+         0 |       *+       *+       +       +       +
+            --------|--------|-------|-------|-------|-------|
+                   1.000   10.000  25.000  50.000  100.000   | Nº Cuentas
+			
+
+b) procesarMovimientos es ineficiente porque recorre todas las cuentas entre desde y hasta
+   para cada consulta, lo que genera muchisimas operaciones repetidas cuando los rangos
+   son grandes. Su complejidad es O(N × M).
+	
+	
+c) procesarMovimientosOptimizado solo modifica dos posiciones por consulta y luego acumula
+   los valores en un solo recorrido. Así, reduce la complejidad a O(N + M) y es mucho
+   mas eficiente.
