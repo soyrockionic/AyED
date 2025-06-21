@@ -1,0 +1,5 @@
+Algunas operaciones en ArrayList son rapidas (tiempo constante) porque trabajan directamente
+con posiciones ya conocidas, como get, set o size. No necesitan recorrer el arreglo.
+
+En cambio, otras operaciones son mas lentas (tiempo lineal) porque tienen que mover muchos
+elementos (como insertar en el medio o borrar) o buscar uno por uno hasta encontrar lo que se quiere.
