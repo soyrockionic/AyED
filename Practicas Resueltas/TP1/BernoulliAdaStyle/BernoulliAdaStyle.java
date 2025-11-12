@@ -4,13 +4,13 @@ package TP1.BernoulliAdaStyle;
   Pasos basicos para calcular los numeros de Bernoulli utilizando el 
   enfoque historico del algoritmo de Ada Lovelace
   1. Definir una tabla B para almacenar los números de Bernoulli.
-  2. Inicializar la tabla B con valores conocidos (por ejemplo, B[0] = 1 y B[1] = -1/2).
-  3. Para cada valor de n desde 2 hasta el maximo deseado:
-     a. Inicializar el numero de Bernoulli B[n] a 0.
-     b. Para cada k desde 0 hasta n:
-        i. Calcular el coeficiente binomial C(n, k).
-        ii. Actualizar B[n] con el valor de C(n, k) * B[k] * (-1)^(n-k).
-     c. Dividir B[n] entre (n+1) para obtener el valor final de B[n].
+  2. Inicializar la tabla B con valores conocidos (por ejemplo, B[0] = 1).
+  3. Para cada valor de n desde 1 hasta el maximo deseado:
+      a. Inicializar una suma parcial a 0.
+      b. Para cada k desde 0 hasta n-1:
+          i. Calcular el coeficiente binomial C(n+1, k).
+          ii. Acumular: suma = suma + C(n+1, k) * B[k].
+      c. Asignar B[n] = -suma / (n + 1).
   4. Mostrar o utilizar los numeros de Bernoulli calculados.
 */
 
@@ -61,3 +61,4 @@ public class BernoulliAdaStyle {
         }
     }
 }
+
