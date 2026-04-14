@@ -4,44 +4,30 @@ public class Main {
     
     public static void main(String[] args) throws IllegalAccessException {
         
-        DoubleEndedQueue<T>  cola = new DoubleEndedQueue<>();
+        CircularQueue<Integer> cola = new CircularQueue<>();
         
-        T  n1 = new T(10);
-        cola.enqueue(n1);
-        T  n2 = new T(20);
-        cola.enqueue(n2);
-        T  n3 = new T(30);
-        cola.enqueue(n3);
+        cola.enqueue(10);
+        cola.enqueue(15);
+        cola.enqueue("Veinte");
+        cola.enqueue(25);
         
-        System.out.println("Elementos " + cola.toString());
-        System.out.println("Cantidad " + cola.size());
-        System.out.println("Elimino " + cola.dequeue());
-        System.out.println("Elementos " + cola.toString());
-        System.out.println("Cantidad " + cola.size());
-        System.out.println("Primer elemento " + cola.head());
+        System.out.println(cola.toString());
+        cola.shift();
+        System.out.println(cola.toString());
+        cola.shift();
+        System.out.println(cola.toString());
+        System.out.println(cola.head());
         
-        T n4 = new T(40);
-        cola.enqueueFirst(n4);
-        T n5 = new T(50);
-        cola.enqueue(n5);
-    
-        System.out.println("Elementos " + cola.toString());
-        System.out.println("Cantidad " + cola.size());
-        System.out.println("Primer elemento " + cola.head());
+        DoubleEndedQueue fila = new DoubleEndedQueue();
         
-        CircularQueue<Integer> circularQueue = new CircularQueue<>();
-        T n6 = new T(40);
-        T n7 = new T(50);
-        T n8 = new T(60);
-        circularQueue.enqueue(n6);
-        circularQueue.enqueue(n7);
-        circularQueue.enqueue(n8);
-        circularQueue.shift();
-        System.out.println("Circular Queue: " + circularQueue.toString());
-        System.out.println("Cantidad: " + circularQueue.size());
-        System.out.println("Circular Queue: " + circularQueue.shift());
-        System.out.println("Circular Queue: " + circularQueue.toString());
-
+        fila.enqueueFirst(100);
+        fila.enqueue("Doscientos");
+        fila.enqueueFirst("Trescientos");
+        fila.enqueueFirst(400);
+        System.out.println(fila.toString());
+        System.out.println(fila.dequeue());
+        System.out.println(fila.toString());
+        
     }
     
 }
