@@ -2,7 +2,7 @@ package TP1.Ejercicio8;
 
 import java.util.LinkedList;
 
-public class Queue<T>  extends Sequence{
+public class Queue<T> {
     
     private LinkedList<T> turnos = new LinkedList<>();
 
