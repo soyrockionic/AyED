@@ -4,39 +4,54 @@ import TP2.Ejercicio1.BinaryTree;
 
 public class ProfundidadDeArbolBinario {
     
-    private BinaryTree<Integer> arbol = new BinaryTree();
-
+    BinaryTree<Integer> arbol = new BinaryTree<>();
+    
     public ProfundidadDeArbolBinario (BinaryTree<Integer> arbol) {
         this.arbol = arbol;
     }
-
+    
     public int sumaElementosProfundidad(int p) {
-        return (!arbol.isEmpty()) ? sumaElementosProfundidad(arbol, p, 0) : 0;
+        if (p < 0 || arbol.isEmpty()) {
+            return 0;
+        }
+        return sumarEnNivel(arbol, p, 0);
     }
     
-    private int sumaElementosProfundidad(BinaryTree<Integer> arbol, int p, int nivelActual) {
+    private int sumarEnNivel(BinaryTree<Integer> arbol, int p, int nivelActual) {
         if (nivelActual == p) {
             return arbol.getData();
-        } else {
-            int sumaHI = 0;
-            int sumaHD = 0;
-            if(arbol.hasLeftChild())
-                sumaHI = sumaElementosProfundidad(arbol.getLeftChild(), p, nivelActual + 1);
-            if(arbol.hasRightChild())
-                sumaHD = sumaElementosProfundidad(arbol.getRightChild(), p, nivelActual + 1);
-            return sumaHI + sumaHD;
         }
+        int sumaHI = 0;
+        int sumaHD = 0;
+        if(arbol.hasLeftChild())
+            sumaHI = sumarEnNivel(arbol.getLeftChild(), p, nivelActual + 1);
+        if(arbol.hasRightChild())
+            sumaHD = sumarEnNivel(arbol.getRightChild(), p, nivelActual + 1);
+        return sumaHI + sumaHD;
     }
     
-    /* //suma los nodo apartir del nodo del arbol enviado
-        private int sumaElementosProfundidad(BinaryTree<Integer> arbolBinario) {
-        int retHI = 0;
-        int retHD = 0;
-        if(arbolBinario.hasLeftChild())
-            retHI = sumaElementosProfundidad(arbolBinario.getLeftChild());
-        if(arbolBinario.hasRightChild())
-            retHD = sumaElementosProfundidad(arbolBinario.getRightChild());
-        return retHI + retHD+ arbolBinario.getData();
-    }*/
+    public static void main(String[] args)  {
+        
+        BinaryTree<Integer> arbol = new BinaryTree<>(10);
+        
+        BinaryTree<Integer> leftChild = new BinaryTree<>(2);
+        BinaryTree<Integer> rightChild = new BinaryTree<>(3);
+        
+        arbol.addLeftChild(leftChild);
+        arbol.addRightChild(rightChild);
+        
+        leftChild.addLeftChild(new BinaryTree<Integer>(5));
+        leftChild.addRightChild(new BinaryTree<Integer>(4));
+        
+        rightChild.addLeftChild(new BinaryTree<Integer>(9));
+        rightChild.addRightChild(new BinaryTree<Integer>(8));
+        
+        ProfundidadDeArbolBinario prof = new ProfundidadDeArbolBinario(arbol);
+        
+        System.out.println(prof.sumaElementosProfundidad(0));
+        System.out.println(prof.sumaElementosProfundidad(1));
+        System.out.println(prof.sumaElementosProfundidad(2));
+        
+    }
     
 }
