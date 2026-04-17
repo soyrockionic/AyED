@@ -1,59 +1,75 @@
 package TP3.Ejercicio1;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import tp1.ejercicio8.Queue;
 
-public class GeneralTree<T> {
-    private T dato;
-    private List<GeneralTree<T>> children;
+public class GeneralTree<T>{
+
+    private T data;
+    private List<GeneralTree<T>> children = new LinkedList<GeneralTree<T>>(); 
+
+    public GeneralTree() {
+        }
     
-    public GeneralTree (){      
+    public GeneralTree(T data) {
+        this.data = data;
     }
 
-    // Constructor que inicializa el arbol con un dato y sin hijos.
-    public GeneralTree(T dato) {
-        this.dato = dato;
-        this.children = new ArrayList<>();
+    public GeneralTree(T data, List<GeneralTree<T>> children) {
+        this(data);
+        this.children = children;
+    }
+        
+    //retorna el dato almacenado en la raiz del arbol
+    public T getData() {
+        return data;
     }
 
-    // Constructor que inicializa el arbol con un dato y una lista de hijos.
-    public GeneralTree(T dato, List<GeneralTree<T>> children) {
-        this.dato = dato;
-        this.children = children != null ? children : new ArrayList<>();
+    public void setData(T data) {
+        this.data = data;
     }
 
-    // Metodo que retorna el dato almacenado en la raíz del arbol.
-    public T obtenerDato() {
-        return dato;
-    }
-
-    // Metodo que retorna la lista de hijos de la raíz del arbol.
+    //retorna la lista de hijos de la raiz del arbol.
     public List<GeneralTree<T>> getChildren() {
-        return children;
+        return this.children;
     }
-
-    // Metodo que agrega un hijo al final de la lista de hijos.
+	
+    public void setChildren(List<GeneralTree<T>> children) {
+        if (children != null)
+            this.children = children;
+    }
+	
+    //agrega un hijo al final de la lista de hijos del arbol
     public void addChild(GeneralTree<T> child) {
-        children.add(child);
+        this.getChildren().add(child);
     }
 
-    // Metodo que elimina un hijo pasado como parametro de la lista de hijos.
-    public void removeChild(GeneralTree<T> child) {
-        children.remove(child);
+    public boolean isLeaf() {
+        return !this.hasChildren();
     }
-
-    // Metodo que verifica si el arbol tiene hijos.
+	
+    //devuelve verdadero si la lista de hijos del árbol no es null y tampoco es vacia
     public boolean hasChildren() {
-        return children != null && !children.isEmpty();
+        return !this.children.isEmpty();
+    }
+	
+    //devuelve verdadero si el dato del arbol es null y ademas no tiene hijos.
+    public boolean isEmpty() {
+        return this.data == null && !this.hasChildren();
     }
 
-    // Metodo que verifica si el arbol esta vacio.
-    public boolean estaVacio() {
-        return dato == null && (children == null || children.isEmpty());
+    //elimina del arbol el hijo pasado como parametro.
+    public void removeChild(GeneralTree<T> child) {
+        if (this.hasChildren())
+            children.remove(child);
     }
     
+    @Override
+    public String toString() {
+        return data != null ? data.toString() : "null";
+    }
+	
     public int altura() {
         if (children == null || children.isEmpty()) {
             return 0; // Si no hay hijos, la altura es 0
@@ -64,52 +80,54 @@ public class GeneralTree<T> {
         }
         return maxAltura + 1; // Se suma 1 para contar el nodo actual
     }
-    
-    public int nivel(T dato) {
-        return nivelRecursivo(dato, 0);
+	
+     public int nivel(T dato) {
+        return buscarNivel(dato, 0);
     }
 
-    private int nivelRecursivo(T dato, int nivelActual) {
+    private int buscarNivel(T dato, int nivelActual) {
         // Verifica si el dato en la raiz es el que estamos buscando
-        if (this.dato != null && this.dato.equals(dato)) {
+        if (this.data != null && this.data.equals(dato)) {
             return nivelActual;
         }
         // Recorre los hijos del arbol y busca el dato en cada uno
         for (GeneralTree<T> child : children) {
-            int nivelEncontrado = child.nivelRecursivo(dato, nivelActual + 1);
+            int nivelEncontrado = child.buscarNivel(dato, nivelActual + 1);
             if (nivelEncontrado != -1) {
                 return nivelEncontrado;
             }
         }
         return -1; // Si no se encontro el dato, retorna -1
     }
-    
-    public int ancho() {
-        if (this == null) return 0;
 
-        // Cola para el recorrido por niveles
-        Queue<GeneralTree<T>> queue = new LinkedList<>();
-        queue.add(this);
+    public int ancho() throws IllegalAccessException {
+        if (this.isEmpty()) return 0;
 
+        Queue<GeneralTree<T>> cola = new Queue<>();
+        cola.enqueue(this);
         int maxAncho = 0;
 
-        while (!queue.isEmpty()) {
-            int nivelSize = queue.size(); // Número de nodos en el nivel actual
-            maxAncho = Math.max(maxAncho, nivelSize);
+        while (!cola.isEmpty()) {
+            int nodosEnEsteNivel = cola.size();
+            maxAncho = Math.max(maxAncho, nodosEnEsteNivel);
 
-            for (int i = 0; i < nivelSize; i++) {
-                GeneralTree<T> currentNode = queue.poll();
-                for (GeneralTree<T> child : currentNode.getChildren()) {
-                    queue.add(child);
+            // Procesar exactamente los nodos del nivel actual
+            for (int i = 0; i < nodosEnEsteNivel; i++) {
+                GeneralTree<T> actual = cola.dequeue();
+                // Encolar hijos para el siguiente nivel
+                for (GeneralTree<T> hijo : actual.getChildren()) {
+                    cola.enqueue(hijo);
                 }
             }
         }
         return maxAncho;
     }
     
+    
     public boolean esAncestro(T a, T b) {
         // Si el nodo actual es 'a', debemos buscar si 'b' es descendiente de 'a'
-        if (this.obtenerDato().equals(a)) {
+        if (this.getData().equals(a)) {
+            if (this.getData().equals(b)) return false;
             return contieneValor(b);
         }      
         // Si 'a' no es el nodo actual, buscar en los hijos
@@ -123,7 +141,7 @@ public class GeneralTree<T> {
 
     private boolean contieneValor(T b) {
         // Si el valor actual es 'b', entonces 'b' es encontrado y retornamos true
-        if (this.obtenerDato().equals(b)) {
+        if (this.getData().equals(b)) {
             return true;
         }     
         // Si no es 'b', verificamos en los hijos si alguno tiene el valor 'b'
@@ -134,5 +152,5 @@ public class GeneralTree<T> {
         }      
         return false;
     }
-    
+        
 }
