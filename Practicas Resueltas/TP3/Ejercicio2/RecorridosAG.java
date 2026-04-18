@@ -1,78 +1,103 @@
 package TP3.Ejercicio2;
 
-import TP3.Ejercicio1.GeneralTree;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import tp3.ejercicio1.GeneralTree;
 
-public class RecorridosAG { 
+public class RecorridosAG {
     
     public List<Integer> numerosImparesMayoresQuePreOrden(GeneralTree<Integer> a, Integer n) {
         List<Integer> resultado = new ArrayList<>();
-        preOrden(a, n, resultado);
+        preOrdenRec (a, n, resultado);
         return resultado;
     }
-
-    private void preOrden(GeneralTree<Integer> a, Integer n, List<Integer> resultado) {
-        // Caso base: Si el arbol esta vacio, no hace nada.
-        if (a == null || a.estaVacio()) {return;}
-
-        // Procesa el nodo actual (raiz).
-        Integer dato = a.obtenerDato();
-        if (dato != null && dato % 2 != 0 && dato > n) {  // Es impar y mayor que n
-            resultado.add(dato);
-        }
-
-        // Recursivamente procesa los hijos en preorden.
-        for (GeneralTree<Integer> hijo : a.getChildren()) {
-            preOrden(hijo, n, resultado);
-        }
-    }
     
+    private void preOrdenRec(GeneralTree<Integer> nodo, Integer n, List<Integer> resultado) {
+        if (nodo == null) return;
+
+        Integer valor = nodo.getData();
+        if (valor != null && valor > n && valor % 2 != 0) {
+            resultado.add(valor);
+        }
+
+        // Recursion sobre cada hijo
+       for (GeneralTree<Integer> hijo : nodo.getChildren()) {
+           preOrdenRec(hijo, n, resultado);
+       }
+    }
+       
     public List<Integer> numerosImparesMayoresQuePostOrden(GeneralTree<Integer> a, Integer n) {
         List<Integer> resultado = new ArrayList<>();
-        postOrden(a, n, resultado);
+        postOrdenRec (a, n, resultado);
         return resultado;
     }
     
-    private void postOrden(GeneralTree<Integer> a, Integer n, List<Integer> resultado) {
-        // Caso base: Si el arbol esta vacio, no hace nada.
-        if (a == null || a.estaVacio()) {return;}
+    private void postOrdenRec(GeneralTree<Integer> nodo, Integer n, List<Integer> resultado) {
+        if (nodo == null) return;
+        
+        // Recursion sobre cada hijo
+       for (GeneralTree<Integer> hijo : nodo.getChildren()) {
+           preOrdenRec(hijo, n, resultado);
+       }
 
-        // Recursivamente procesa todos los hijos en postorden.
-        for (GeneralTree<Integer> hijo : a.getChildren()) {
-            postOrden(hijo, n, resultado);
-        }
-
-        // Procesa el nodo actual (raiz).
-        Integer dato = a.obtenerDato();
-        if (dato != null && dato % 2 != 0 && dato > n) {  // Es impar y mayor que n
-            resultado.add(dato);
-        }
+        Integer valor = nodo.getData();
+        if (valor != null && valor > n && valor % 2 != 0) {
+            resultado.add(valor);
+        }    
     }
     
     public List<Integer> numerosImparesMayoresQuePorNiveles(GeneralTree<Integer> a, Integer n) {
         List<Integer> resultado = new ArrayList<>();
-        if (a == null || a.estaVacio()) {return resultado;}
+        if (a == null || a.isEmpty()) return resultado;
 
-        Queue<GeneralTree<Integer>> cola = new LinkedList<>();
+        LinkedList<GeneralTree<Integer>> cola = new LinkedList<>();
         cola.add(a);
 
         while (!cola.isEmpty()) {
             GeneralTree<Integer> nodoActual = cola.poll();
-            Integer dato = nodoActual.obtenerDato();
+            Integer valor = nodoActual.getData();
 
             // Verificar si el dato es impar y mayor que n
-            if (dato != null && dato % 2 != 0 && dato > n) {
-                resultado.add(dato);
+            if (valor != null && valor % 2 != 0 && valor > n) {
+                resultado.add(valor);
             }
 
-            // Agregar todos los hijos del nodo actual a la cola
-            cola.addAll(nodoActual.getChildren());
+            // Encolar hijos de izquierda a derecha
+            for (GeneralTree<Integer> hijo : nodoActual.getChildren()) {
+                cola.add(hijo);
+            }
         }
 
         return resultado;
+    }
+    
+    public List<Integer> numerosImparesMayoresQueInOrden(GeneralTree<Integer> a, Integer n) {
+        List<Integer> resultado = new ArrayList<>();    
+        inOrdenRec(a, n, resultado);
+        return resultado;
+    }
+
+    private void inOrdenRec(GeneralTree<Integer> nodo, Integer n, List<Integer> resultado) {
+        if (nodo == null) return;
+    
+        List<GeneralTree<Integer>> hijos = nodo.getChildren();
+    
+        // 1 Primer hijo (recorrido inorden)
+        if (!hijos.isEmpty()) {
+            inOrdenRec(hijos.get(0), n, resultado);
+        }
+    
+        // 2 Raiz (procesar nodo actual)
+        Integer valor = nodo.getData();
+        if (valor != null && valor > n && valor % 2 != 0) {
+            resultado.add(valor);
+        }
+    
+        // 3 Restantes hijos (recorrido inorden)
+        for (int i = 1; i < hijos.size(); i++) {
+            inOrdenRec(hijos.get(i), n, resultado);
+        }
     }
     
 }
