@@ -4,14 +4,14 @@ import TP3.Ejercicio1.GeneralTree;
 
 public class RedDeAguaPotable {
     
-    private GeneralTree<Character> red new GeneralTree<>();
+    private GeneralTree<Character> arbol =new GeneralTree<>();
 
     public RedDeAguaPotable(GeneralTree<Character> red) {
-        this.red = red;
+        this.arbol = red;
     }
     
     public double minimoCaudal(double caudalActual) {
-        return calcularMinimoCaudal(red, caudalActual);
+        return calcularMinimoCaudal(arbol, caudalActual);
     }
 
     private double calcularMinimoCaudal(GeneralTree<Character> arbol, double caudalActual) {
@@ -31,6 +31,5 @@ public class RedDeAguaPotable {
         
         return caudalMinimo;
     }
-    
     
 }
