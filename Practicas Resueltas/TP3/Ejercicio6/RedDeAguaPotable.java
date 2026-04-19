@@ -4,7 +4,7 @@ import TP3.Ejercicio1.GeneralTree;
 
 public class RedDeAguaPotable {
     
-    private GeneralTree<Character> red;
+    private GeneralTree<Character> red new GeneralTree<>();
 
     public RedDeAguaPotable(GeneralTree<Character> red) {
         this.red = red;
@@ -15,11 +15,13 @@ public class RedDeAguaPotable {
     }
 
     private double calcularMinimoCaudal(GeneralTree<Character> arbol, double caudalActual) {
-        if (arbol.getChildren().isEmpty()) {
-            return caudalActual; // Si es una hoja, el caudal actual es el caudal que recibe la casa.
-        }
+        
+        if (arbol.isEmpty()) return 0;
+        
+        if (arbol.isLeaf()) return caudalActual;
         
         double caudalPorBifurcacion = caudalActual / arbol.getChildren().size();
+        
         double caudalMinimo = caudalActual;
         
         for (GeneralTree<Character> hijo : arbol.getChildren()) {
