@@ -3,26 +3,31 @@ package TP3.Ejercicio9;
 import TP3.Ejercicio1.GeneralTree;
 import java.util.List;
 
-public class ArbolDibujoConsola<T> {
-    private GeneralTree<T> arbol;
+public class ArbolDibujoConsola <T> {
+    
+    private GeneralTree<T> arbol = new GeneralTree();
 
     public ArbolDibujoConsola(GeneralTree<T> arbol) {
         this.arbol = arbol;
     }
 
-    // Método que inicia el dibujo del árbol
+    // Metodo que inicia el dibujo del árbol
     public void dibujarArbol() {
         if (arbol != null) {
             dibujarNodo(arbol, "", true);
         } else {
-            System.out.println("El arbol está vacio.");
+            System.out.println("El arbol esta vacio.");
         }
     }
 
-    // Método recursivo para dibujar cada nodo
+    // Metodo recursivo para dibujar cada nodo
     private void dibujarNodo(GeneralTree<T> nodo, String prefijo, boolean esUltimo) {
         // Imprimir el nodo con las conexiones
-        System.out.println(prefijo + (esUltimo ? "└── " : "├── ") + nodo.obtenerDato());
+        if (prefijo.isEmpty()) {
+            System.out.println("    " + nodo.getData()); // Raiz sin conexión
+        } else {
+            System.out.println(prefijo + (esUltimo ? "└─ " : "├─ ") + nodo.getData());
+        }
 
         // Construir prefijo para los hijos
         String nuevoPrefijo = prefijo + (esUltimo ? "    " : "│   ");
@@ -33,7 +38,5 @@ public class ArbolDibujoConsola<T> {
             dibujarNodo(hijos.get(i), nuevoPrefijo, i == hijos.size() - 1);
         }
     }
-
+ 
 }
-
-
