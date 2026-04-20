@@ -1,8 +1,8 @@
 package TP3.Ejercicio7;
 
-import TP3.Ejercicio1.GeneralTree;
 import java.util.ArrayList;
 import java.util.List;
+import TP3.Ejercicio1.GeneralTree;
 
 public class Caminos {
     private GeneralTree<Integer> arbol = new GeneralTree<>();
