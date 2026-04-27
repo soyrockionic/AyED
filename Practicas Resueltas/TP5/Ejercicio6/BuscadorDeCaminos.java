@@ -4,7 +4,6 @@ import TP5.Ejercicio1.AdyacenciaLista.AdyacenciaListaGrafo;
 import TP5.Ejercicio1.Arista;
 import TP5.Ejercicio1.Grafo;
 import TP5.Ejercicio1.Vertice;
-import TP5.Ejercicio2.GrafoVisual;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -108,8 +107,6 @@ public class BuscadorDeCaminos {
         System.out.println("Grafo conexiones de los vertices:");
         imprimirGrafo(bosque);
         
-       GrafoVisual g = new GrafoVisual(bosque);
-       g.mostrarGrafo();
     }
     
     public static void imprimirGrafo(Grafo<String> bosque) {
