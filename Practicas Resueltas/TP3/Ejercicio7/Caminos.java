@@ -27,7 +27,7 @@ public class Caminos {
         for (GeneralTree<Integer> hijo : nodo.getChildren()) {
             List<Integer> caminoActual = buscarCamino(hijo);
             if (caminoActual.size() > caminoMasLargo.size()) {
-                caminoMasLargo = new ArrayList<>(caminoActual);
+                caminoMasLargo = caminoActual;
             }
         }
         
