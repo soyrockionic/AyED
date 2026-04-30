@@ -48,6 +48,7 @@ public class ParcialArbolesDos {
     }
     
     private void calcularSumas (GeneralTree<Integer> arbol, List<Integer> sumas) {
+        
         if (arbol == null || arbol.isEmpty()) return;
         
         for (GeneralTree<Integer> hijo : arbol.getChildren()) {
