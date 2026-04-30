@@ -121,9 +121,6 @@ public class ParcialArbolesTres {
         
         System.out.println(p.camino(2));
         
-        ArbolDibujoConsola dibu = new ArbolDibujoConsola (ag);
-        dibu.dibujarArbol();
-        
     }
     
 }
