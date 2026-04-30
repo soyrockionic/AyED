@@ -1,4 +1,4 @@
-package tp3.ejercicio1;
+package TP3.Ejercicio1;
 
 /*parcial
 Implemente en la clase el metodo: resolver (GeneralTree<String> arbol) que recibe
@@ -120,11 +120,7 @@ public class ParcialArbol {
         ParcialArbol pa = new ParcialArbol();
         
         System.out.println(pa.resolver(arbol));
-        System.out.println();
-        
-        ArbolDibujoConsola dibu = new ArbolDibujoConsola(arbol);
-        dibu.dibujarArbol();
-        
+                
     }
     
 }
