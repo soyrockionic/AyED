@@ -3,12 +3,11 @@ package tp3.ejercicio1;
 /*
 2da Fecha 29/6/2024 Tema 1
 
-Defina una clase ParcialArboles con: una unica variable de instancia de tipo
-BinaryTree<Integer>, y metodo publico con la siguiente firma:
-Public BinaryTree<Integer> nuevoTree()
+Defina una clase ParcialArboles con una unica variable de instancia de tipo BinaryTree<Integer>,
+y metodo publico con la siguiente firma: Public BinaryTree<Integer> nuevoTree()
 El metodo debe devolver un nuevo arbol construido de la siguiente forma:
-- Si el arbol dado tiene hijo izquierdo, el nuevo arbol tendra hijo izquierdo cuyo valor
-  sera la suma del valor del hijo izquierdo y el valor del padre del arbol dado.
+- Si el arbol dado tiene hijo izquierdo, el nuevo arbol tendra hijo izquierdo cuyo valor sera
+  la suma del valor del hijo izquierdo y el valor del padre del arbol dado.
 - Si el arbol dado no tiene hijo izquierdo, tampoco lo tendra el nuevo.
 - Los hijos derechos del nuevo arbol son iguales a los del arbol dado.
 - Las hojas del arbol dado seran hojas del nuevo.
