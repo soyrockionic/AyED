@@ -17,7 +17,7 @@ Ejemplo en el siguiente arbol debe retornar el 22.
     => 20
     => 3
 
-- Debe respetar la clase y el metoo indicado.
+- Debe respetar la clase y el metodo indicado.
 - Puede definir todos los metodos y variables auxiliares que considere.
 - Todo metodo que no este definido en las practicas debe ser implementado.
 - Respetar el recorrido solicitado.
