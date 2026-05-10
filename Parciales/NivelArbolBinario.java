@@ -1,12 +1,12 @@
 package tp3.ejercicio1;
 
 /*
-Implente en la clase NivelArbolBinario una variable de instancia arbol con un
+Implemente en la clase NivelArbolBinario una variable de instancia arbol con un
 BinaryTree<Integer> y un metodo minEnArbolDeAB (int n): BinaryTree<Integer>
 que devuelve el subarbol hoja con menor valor en el nivel n del arbol, De haber
-mas de unodevuelve el primero encontrado. Considere que n es un nivel valido
+mas de uno devuelve el primero encontrado. Considere que n es un nivel valido
 del arbol. sin embargo, puede suceder que no existan hojas en ese nivel, en ese
-caso, debe devolver null. Realice un recrrido por niveles.
+caso, debe devolver null. Realice un recorrido por niveles.
 
 Para el siguiente arbol:
 
