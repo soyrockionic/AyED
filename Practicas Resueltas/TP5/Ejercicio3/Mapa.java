@@ -21,7 +21,7 @@ public class Mapa {
         if(!mapaCiudades.estaVacio()){
             Vertice<String> origen = mapaCiudades.buscar(ciudad1);
             Vertice<String> destino = mapaCiudades.buscar(ciudad2);
-            if (origen != null || destino != null) {
+            if (origen != null && destino != null) {
                 boolean[] marca = new boolean[mapaCiudades.obtenerTamaño()]; // Array para marcar los vertices visitados               
                 dfsCamino(origen, destino, marca, camino);
             }
@@ -51,6 +51,50 @@ public class Mapa {
         }
 
         // Si no encontramos el destino desde este vertice, lo eliminamos del camino
+        camino.remove(camino.size() - 1);
+        return false;
+    }
+
+    /*===========================================================*/
+
+    public List<String> devolverCaminoExceptuando (String ciudad1, String ciudad2,
+                                                                      List<String> ciudades) {
+        List<String> camino = new ArrayList <> ();
+        if (!mapaCiudades.isEmpty()) {
+            Vertex<String> origen = mapaCiudades.search(ciudad1);
+            Vertex<String> destino = mapaCiudades.search(ciudad2);
+            if (origen != null && destino != null) {
+                boolean [] marca = new boolean [mapaCiudades.getSize()];
+                dfsCaminoExcepto(origen, destino, marca, camino, ciudades);
+            }
+        }
+        return camino;
+    }
+    
+    private boolean dfsCaminoExcepto (Vertex<String> actual, Vertex<String> destino,
+                                          boolean [] marca, List<String> camino, List<String> ciudades) {
+        
+        if (ciudades.contains(actual.getData())) {
+            return false;
+        }
+        
+        marca [actual.getPosition()] = true;
+        camino.add(actual.getData());
+        
+        if (actual.equals(destino)) {
+            return true;
+        }
+        
+        List<Edge<String>> adyacentes = mapaCiudades.getEdges(actual);
+        for (Edge<String> arista : adyacentes) {
+            Vertex<String> siguiente = arista.getTarget();
+            if (!marca[siguiente.getPosition()]) {
+                if (dfsCaminoExcepto (siguiente, destino, marca, camino, ciudades)) {
+                    return true;
+                }
+            }
+        }
+        
         camino.remove(camino.size() - 1);
         return false;
     }
@@ -108,7 +152,7 @@ public class Mapa {
         if (!mapaCiudades.estaVacio()) {
             Vertice<String> origen = mapaCiudades.buscar(ciudad1);
             Vertice<String> destino = mapaCiudades.buscar(ciudad2);
-            if (origen != null && destino != null) { // Cambié la condición a "&&" porque queremos que ambos vértices existan
+            if (origen != null && destino != null) {
                 boolean[] marca = new boolean[mapaCiudades.obtenerTamaño()]; // Array para marcar los vértices visitados               
                 dfsCaminoSinCarga(origen, destino, marca, camino, tanqueAuto, 0);
             }
