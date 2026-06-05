@@ -1,0 +1,30 @@
+14)
+
+int count = 0; int n = a.length;
+for (int i = 1; i <= n; i = i*2) {
+    for (int j = 0; j < n; j+=n/2) {
+        a[j]++;
+    }
+}
+
+Este algoritmo se ejecuta en una computadora que procesa 1.000 operaciones por segundo.
+Determine el tiempo aproximado que requerira el algoritmo para resolver un problema
+de tamaño n=4096.
+
+T(n) = (log2 (n) + 1) * 2
+
+O(log n)
+
+log2 (4096) = 12
+
+T(4096) = (12 + 1) * 2 = 26
+
+tiempo = 26 op / (1000 op/seg) = 0.026 seg
+
+Usando el orden:
+
+f(n) = O(log n)
+
+f(4096) = log2 (4096) = 12
+
+tiempo = 12 op / (1000 op/seg) = 0.012 seg
