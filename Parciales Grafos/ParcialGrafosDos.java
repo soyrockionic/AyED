@@ -40,8 +40,7 @@ import tp5.ejercicio1.Vertex;
 
 public class ParcialGrafosDos {
     
-    public List<String> recorridoSeguroMaxFrutales(Grafo<String> bosque, String caperucita,
-                                                                              String abuelita, int maxFrutales) {
+    public List<String> recorridoSeguroMaxFrutales(Grafo<String> bosque, String caperucita, String abuelita, int maxFrutales) {
         List<String> mejorCamino = new ArrayList<>();
         if (!bosque.isEmpty()) {
             Vertex<String> origen = bosque.search(caperucita);
@@ -50,8 +49,7 @@ public class ParcialGrafosDos {
                 boolean[] visitados = new boolean[bosque.getSize()];
                 List<String> caminoActual = new ArrayList<>();
                 int[] maximoFrutales = {-1};      
-                dfsFrutales(bosque, origen, destino, maxFrutales, visitados, caminoActual, 0,
-                                                                               mejorCamino, maximoFrutales);
+                dfsFrutales(bosque, origen, destino, maxFrutales, visitados, caminoActual, 0, mejorCamino, maximoFrutales);
             }
         }
         return mejorCamino;
