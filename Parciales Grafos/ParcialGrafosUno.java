@@ -48,8 +48,7 @@ import tp5.ejercicio1.Vertex;
 
 public class ParcialGrafosUno <T> {
     
-    public List<List<String>> rutasMultiples(Grafo<String> zona, String baseRescate, 
-                                                         String objetivo, int maxDuracion) {
+    public List<List<String>> rutasMultiples(Grafo<String> zona, String baseRescate, String objetivo, int maxDuracion) {
         List<List<String>> todasLasRutas = new ArrayList<>();     
         if (!zona.isEmpty()) {
             Vertex<String> origen = zona.search(baseRescate);
