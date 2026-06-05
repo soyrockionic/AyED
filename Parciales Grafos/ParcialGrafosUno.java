@@ -4,8 +4,8 @@ package tp5.parciales;
 AyED 2024 Grafos - 16.11.2024 - Tema 2
 Implemente la clase ParcialGrafos, y el metodo:
 
-public List<List<String>> rutasMultiples(Graph<String> zona, String baseRescate, String
-                                                                                   objetivo, int maxDuracion)
+public List<List<String>> rutasMultiples(Graph<String> zona, String baseRescate,
+String objetivo, int maxDuracion)
 
 Una zona peligrosa necesita ser recorrida por un equipo de rescate para llegar a un punto
 objetivo, pero respetando un tiempo maximo por tramo debido a condiciones peligrosas.
@@ -79,8 +79,7 @@ public class ParcialGrafosUno <T> {
                 int duracion = arista.getWeight();
                 
                 if (!visitados[siguiente.getPosition()] && duracion <= maxDuracion) {
-                    dfsRutas(grafo, siguiente, destino, maxDuracion, visitados, 
-                             rutaActual, todasLasRutas);
+                    dfsRutas(grafo, siguiente, destino, maxDuracion, visitados, rutaActual, todasLasRutas);
                 }
             }
         }
