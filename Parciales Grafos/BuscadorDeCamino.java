@@ -9,8 +9,7 @@ import tp5.ejercicio1.Vertex;
 
 public class BuscadorDeCamino {
     
-    public List<String> caminoDistanciaMaxima(Grafo<String> ciudades, String ciudad1,
-                                                                    String ciudad2, int distanciaMaxima) {
+    public List<String> caminoDistanciaMaxima(Grafo<String> ciudades, String ciudad1, String ciudad2, int distanciaMaxima) {
         List<String> camino = new ArrayList<>();
         if (!ciudades.isEmpty()) {
             Vertex<String> origen = ciudades.search(ciudad1);
