@@ -101,48 +101,46 @@ public class Mapa {
     
     /*===========================================================*/
     
-    public List<String> caminoMasCortoDFS(String ciudad1, String ciudad2) {
-        List<String> caminoActual = new ArrayList<>();
+    public List<String> caminoMasCorto(String ciudad1, String ciudad2) {
         List<String> caminoMasCorto = new ArrayList<>();
-
-        Vertice<String> origen = mapaCiudades.buscar(ciudad1);
-        Vertice<String> destino = mapaCiudades.buscar(ciudad2);
-
-        if (origen != null && destino != null) {
-            boolean[] visitados = new boolean[mapaCiudades.obtenerTamaño()];
-            dfsCaminoCorto(origen, destino, visitados, caminoActual, caminoMasCorto);
+        if (!mapaCiudades.isEmpty()) {
+            Vertex<String> origen = mapaCiudades.search(ciudad1);
+            Vertex<String> destino = mapaCiudades.search(ciudad2);      
+            if (origen != null && destino != null) {
+                boolean[] marca = new boolean[mapaCiudades.getSize()];
+                List<String> caminoActual = new ArrayList<>();
+                dfsCorto(origen, destino, marca, caminoActual, 0, caminoMasCorto, 32260);
+            }
         }
-
         return caminoMasCorto;
     }
 
-    // Método DFS modificado sin Set, usando boolean[] visitados
-    private void dfsCaminoCorto(Vertice<String> actual, Vertice<String> destino, boolean[] visitados, 
-                                           List<String> caminoActual, List<String> caminoMasCorto) {
-        // Marcar el nodo como visitado
-        visitados[actual.obtenerPosicion()] = true;
-        caminoActual.add(actual.obtenerDato());
-
-        // Si llegamos al destino, verificar si el camino es más corto
+    private void dfsCorto(Vertex<String> actual, Vertex<String> destino, boolean[] marca, 
+                                      List<String> caminoActual, int distanciaActual, 
+                                      List<String> caminoMasCorto, int distanciaMinima) {
+        marca[actual.getPosition()] = true;
+        caminoActual.add(actual.getData());
+    
         if (actual.equals(destino)) {
-            if (caminoMasCorto.isEmpty() || caminoActual.size() < caminoMasCorto.size()) {
+            if (distanciaActual < distanciaMinima) {
+                distanciaMinima = distanciaActual;
                 caminoMasCorto.clear();
-                caminoMasCorto.addAll(new ArrayList<>(caminoActual));
+                caminoMasCorto.addAll(caminoActual);
             }
         } else {
-            // Explorar las aristas adyacentes
-            List<Arista<String>> adyacentes = mapaCiudades.obtenerAristas(actual);
-            for (Arista<String> arista : adyacentes) {
-                Vertice<String> siguiente = arista.obtenerDestino();
-                if (!visitados[siguiente.obtenerPosicion()]) {
-                    dfsCaminoCorto(siguiente, destino, visitados, caminoActual, caminoMasCorto);
+            List<Edge<String>> adyacentes = mapaCiudades.getEdges(actual);
+            for (Edge<String> arista : adyacentes) {
+                Vertex<String> siguiente = arista.getTarget();
+                int pesoArista = arista.getWeight();
+            
+                if (!marca[siguiente.getPosition()] && (distanciaActual + pesoArista < distanciaMinima)) {
+                    dfsCorto(siguiente, destino, marca, caminoActual, distanciaActual + pesoArista, caminoMasCorto, distanciaMinima);
                 }
             }
         }
-
-        // Backtracking: desmarcar el nodo y quitarlo del camino actual
-        visitados[actual.obtenerPosicion()] = false;
+    
         caminoActual.remove(caminoActual.size() - 1);
+        marca[actual.getPosition()] = false;
     }
     
     /*===========================================================*/
@@ -160,7 +158,8 @@ public class Mapa {
         return camino;
     }
 
-    private boolean dfsCaminoSinCarga(Vertice<String> actual, Vertice<String> destino, boolean[] marca, List<String> camino, int tanqueAuto, int distanciaRecorrida) {
+    private boolean dfsCaminoSinCarga(Vertice<String> actual, Vertice<String> destino, boolean[] marca, List<String> camino, 
+                                                                                   int tanqueAuto, int distanciaRecorrida) {
         marca[actual.obtenerPosicion()] = true; // Marca el vertice como visitado
         camino.add(actual.obtenerDato()); // Añadir la ciudad al camino
 
@@ -228,5 +227,4 @@ public class Mapa {
     }
 
     /*===========================================================*/
-    
 }
